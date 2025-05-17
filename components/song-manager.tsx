@@ -4,16 +4,11 @@ import { useState, useEffect } from "react"
 import { generateId } from "../types"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { AddSongForm } from "./add-song-form"
 import { SongList } from "./song-list"
 import { PlaylistModal } from "./playlist-modal"
-import { type Song, type Playlist } from "../types"
+import type { Song, Playlist } from "../types"
 import { storage } from "../utils/storage"
 
 export function SongManager() {
@@ -37,9 +32,7 @@ export function SongManager() {
 
   const handleEditSong = (songData: Omit<Song, "id">) => {
     if (!editingSong) return
-    const updatedSongs = songs.map((song) =>
-      song.id === editingSong.id ? { ...songData, id: song.id } : song
-    )
+    const updatedSongs = songs.map((song) => (song.id === editingSong.id ? { ...songData, id: song.id } : song))
     setSongs(updatedSongs)
     storage.setSongs(updatedSongs)
     setEditingSong(null)
@@ -76,7 +69,7 @@ export function SongManager() {
             ...playlist,
             songs: playlist.songs.filter((song) => song.id !== songId),
           }
-        : playlist
+        : playlist,
     )
     setPlaylists(updatedPlaylists)
     storage.setPlaylists(updatedPlaylists)
@@ -104,9 +97,7 @@ export function SongManager() {
               <TabsTrigger value="playlists">Playlists</TabsTrigger>
             </TabsList>
             {selectedSongs.length > 0 && (
-              <Button onClick={() => setIsPlaylistModalOpen(true)}>
-                Create Playlist ({selectedSongs.length})
-              </Button>
+              <Button onClick={() => setIsPlaylistModalOpen(true)}>Create Playlist ({selectedSongs.length})</Button>
             )}
           </div>
           <TabsContent value="songs" className="mt-4">
@@ -126,9 +117,7 @@ export function SongManager() {
                   <SongList
                     songs={playlist.songs}
                     onEdit={setEditingSong}
-                    onDelete={(songId) =>
-                      handleRemoveFromPlaylist(playlist.id, songId)
-                    }
+                    onDelete={(songId) => handleRemoveFromPlaylist(playlist.id, songId)}
                   />
                 </div>
               ))}
@@ -143,20 +132,12 @@ export function SongManager() {
             <DialogTitle>Edit Song</DialogTitle>
           </DialogHeader>
           {editingSong && (
-            <AddSongForm
-              onSubmit={handleEditSong}
-              initialValues={editingSong}
-              buttonText="Save Changes"
-            />
+            <AddSongForm onSubmit={handleEditSong} initialValues={editingSong} buttonText="Save Changes" />
           )}
         </DialogContent>
       </Dialog>
 
-      <PlaylistModal
-        open={isPlaylistModalOpen}
-        onOpenChange={setIsPlaylistModalOpen}
-        onSubmit={handleCreatePlaylist}
-      />
+      <PlaylistModal open={isPlaylistModalOpen} onOpenChange={setIsPlaylistModalOpen} onSubmit={handleCreatePlaylist} />
     </div>
   )
 }

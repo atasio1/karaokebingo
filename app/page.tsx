@@ -7,7 +7,7 @@ import { GameSettings } from "@/components/game-settings"
 import { HowToPlay } from "@/components/how-to-play"
 import { PlayGame } from "@/components/play-game"
 
-export default function MusicLibrary() {
+export default function Page() {
   const [activeTab, setActiveTab] = useState("how-to-play")
 
   useEffect(() => {

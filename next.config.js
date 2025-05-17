@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -10,11 +11,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Disable the built-in not-found page generation
-  output: "export",
-  // Downgrade React to a compatible version
+  // Disable the App Router completely
   experimental: {
-    esmExternals: "loose",
+    appDir: false,
   },
 }
 

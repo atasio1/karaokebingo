@@ -2,15 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Play, SkipForward } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Play, SkipForward } from "lucide-react"
 import { BingoCards } from "./bingo-cards"
-import { Song } from "../types"
+import type { Song } from "../types"
 import { useToast } from "@/components/ui/use-toast"
 
 interface GameState {
@@ -28,7 +23,7 @@ export function PlayGame() {
   const [winners, setWinners] = useState<number[]>([])
 
   useEffect(() => {
-    const savedGameState = localStorage.getItem('karaoke_bingo_game_state')
+    const savedGameState = localStorage.getItem("karaoke_bingo_game_state")
     if (savedGameState) {
       setGameState(JSON.parse(savedGameState))
     }
